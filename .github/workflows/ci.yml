@@ -37,7 +37,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Init DB schema
-      uses: make initup
+      run: make initup
 
     - name: Test
       run: make test
