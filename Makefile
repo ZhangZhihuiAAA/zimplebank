@@ -8,21 +8,19 @@ createdb:
 dropdb:
 	docker exec -it postgres16 dropdb zimple_bank
 
-settimezone:
-	psql postgresql://root:aaa@localhost:5432/zimple_bank?sslmode=disable -f db/schema/0000_set_timezone.sql
+initupdatetype:
+	sed -i 's/"numeric(32, 6)"/numeric(32, 6)/g' db/schema/0000_init_schema.up.sql
 
 initup:
-	psql postgresql://root:aaa@localhost:5432/zimple_bank?sslmode=disable -f db/schema/0001_init_schema.up.sql
+	psql postgresql://root:aaa@localhost:5432/zimple_bank?sslmode=disable -f db/schema/0000_init_schema.up.sql
 
 initdown:
-	psql postgresql://root:aaa@localhost:5432/zimple_bank?sslmode=disable  -f db/schema/0001_init_schema.down.sql
-
-initdb: createdb settimezone initup
+	psql postgresql://root:aaa@localhost:5432/zimple_bank?sslmode=disable  -f db/schema/0000_init_schema.down.sql
 
 sqlc:
 	sqlc generate
 	# manually change pgtype.Numeric to float64
-	sed -i 's/pgtype.Numeric/float64/g' db/sqlc/*.go
+	sed -i 's/pgtype.Numeric/float64/g' db/sqlc/*.sql.go
 	goimports -w db/sqlc/*.go
 	gofmt -w db/sqlc/*.go
 	sed -i 's/\t/    /g' db/sqlc/*.go
@@ -30,4 +28,10 @@ sqlc:
 test:
 	go test -v -count=1 -cover ./...
 
-.PHONY: postgres createdb dropdb settimezone initup initdown initdb sqlc test
+server:
+	go run main.go
+
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/ZhangZhihuiAAA/zimplebank/db/sqlc Store
+
+.PHONY: postgres createdb dropdb initupdatetype initup initdown sqlc test server mock
