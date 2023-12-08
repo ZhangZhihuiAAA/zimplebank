@@ -1,6 +1,6 @@
 postgres:
 	docker rm postgres16
-	docker run --name postgres16 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=aaa -d postgres:alpine
+	docker run --name postgres16 --network zbank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=aaa -d postgres:alpine
 
 createdb:
 	docker exec -it postgres16 createdb --username=root --owner=root zimple_bank
