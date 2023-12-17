@@ -10,6 +10,8 @@ FROM alpine:3.18
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY app.env .
+RUN mkdir -p db/schema
+COPY db/schema/0000_init_schema.up.sql db/schema
 
 EXPOSE 8080
 CMD [ "/app/main"]
