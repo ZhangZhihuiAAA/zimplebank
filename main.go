@@ -48,9 +48,9 @@ CONNECT_DB:
     }
 
     if strings.Contains(err.Error(), "does not exist") {
-        data, err := os.ReadFile(config.DBInitSchemaFIle)
+        data, err := os.ReadFile(config.DBInitSchemaFile)
         if err != nil {
-            log.Fatalf("failed to read file: %s", config.DBInitSchemaFIle)
+            log.Fatalf("failed to read file: %s", config.DBInitSchemaFile)
         }
         connPool.Exec(ctx, string(data))
         if err != nil {
