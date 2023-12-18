@@ -8,26 +8,32 @@ import (
 
 // Config stores all configuration of the application.
 type Config struct {
+    DBInitSchemaFile    string        `mapstructure:"DB_INIT_SCHEMA_FILE"`
+    HTTPServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+    AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
     Environment         string        `mapstructure:"ENVIRONMENT"`
     DBSource            string        `mapstructure:"DB_SOURCE"`
-    DBInitSchemaFIle    string        `mapstructure:"DB_INIT_SCHEMA_FILE"`
-    HTTPServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
     TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
-    AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 }
 
-// LoadConfig reads configuration from file or environment variables.
+// LoadConfig reads configuration from files or environment variables.
 func LoadConfig(path string) (config Config, err error) {
     viper.AddConfigPath(path)
-    viper.SetConfigName("app")
     viper.SetConfigType("env")
 
-    viper.AutomaticEnv()
-
+    viper.SetConfigName("app")
     err = viper.ReadInConfig()
     if err != nil {
         return
     }
+
+    viper.SetConfigName("app_prod_overwrite")
+    err = viper.MergeInConfig()
+    if err != nil {
+        return
+    }
+
+    viper.AutomaticEnv()    
 
     err = viper.Unmarshal(&config)
     return

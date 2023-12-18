@@ -25,6 +25,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Load PROD environment variables and save to app_prod_overwrite.env
+        run: aws secretsmanager get-secret-value --secret-id zimple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app_prod_overwrite.env
+
       - name: Build, tag, and push docker image to Amazon ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
