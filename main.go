@@ -37,27 +37,29 @@ func init() {
 
 CONNECT_DB:
     _, err = connPool.Query(ctx, "SELECT * FROM users LIMIT 1;")
-    if strings.Contains(err.Error(), "failed to connect to") {
-        if retryTimes < RETRY_LIMIT {
-            retryTimes++
-            time.Sleep(RETRY_INTERVAL)
-            goto CONNECT_DB
+    if err != nil {
+        if strings.Contains(err.Error(), "failed to connect to") {
+            if retryTimes < RETRY_LIMIT {
+                retryTimes++
+                time.Sleep(RETRY_INTERVAL)
+                goto CONNECT_DB
+            } else {
+                log.Fatal("failed to connect to db:", err)
+            }
+        }
+    
+        if strings.Contains(err.Error(), "does not exist") {
+            data, err := os.ReadFile(config.DBInitSchemaFile)
+            if err != nil {
+                log.Fatalf("failed to read file: %s", config.DBInitSchemaFile)
+            }
+            connPool.Exec(ctx, string(data))
+            if err != nil {
+                log.Fatal("error occurred when init schema:", err)
+            }
         } else {
-            log.Fatal("failed to connect to db:", err)
+            log.Fatal("error occurred:", err)
         }
-    }
-
-    if strings.Contains(err.Error(), "does not exist") {
-        data, err := os.ReadFile(config.DBInitSchemaFile)
-        if err != nil {
-            log.Fatalf("failed to read file: %s", config.DBInitSchemaFile)
-        }
-        connPool.Exec(ctx, string(data))
-        if err != nil {
-            log.Fatal("error occurred when init schema:", err)
-        }
-    } else {
-        log.Fatal("error occurred:", err)
     }
 }
 
