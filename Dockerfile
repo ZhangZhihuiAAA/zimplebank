@@ -9,7 +9,7 @@ RUN go build -o main main.go
 FROM alpine:3.18
 WORKDIR /app
 COPY --from=builder /app/main .
-COPY app.env .
+COPY *.env .
 RUN mkdir -p db/schema
 COPY db/schema/0000_init_schema.up.sql db/schema
 
