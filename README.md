@@ -11,7 +11,7 @@
 * #### SQL CLI Client: psql
 * #### CRUD Code Generation Tool: SQLC(https://sqlc.dev/)
 
-### Non-Standard Library Go packages used:
+### Non-Standard Library Go packages:
 * #### PostgreSQL Driver: github.com/jackc/pgx/v5
 * #### Unit Test: github.com/stretchr/testify/require
 * #### Unit Test: github.com/uber-go/mock
@@ -21,12 +21,18 @@
 * #### UUID: github.com/google/uuid
 * #### Token Maker: github.com/o1egl/paseto
 
-### CI/CD Tools and Services:
-* #### Makefile
+### CI/CD:
 * #### Github Actions
 * #### AWS Free Tier Account
-* #### AWS IAM
-* #### AWS Elastic Container Registery
-* #### AWS RDS
+* #### AWS Identity Access Management (IAM)
+* #### AWS Elastic Container Registery (ECR)
+* #### AWS Relational Database Service (RDS)
 * #### AWS Secrets Manager
-* #### AWS CLI
+* #### AWS Key Management Service (KMS)
+* #### AWS Command Line Interface (CLI)
+* #### AWS Elastic Kubernetes Service (EKS)
+
+### Others:
+* #### VSCode
+* #### Makefile
+* #### Postman

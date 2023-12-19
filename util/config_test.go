@@ -1,7 +1,6 @@
 package util
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -9,7 +8,6 @@ import (
 
 func TestLoadConfig(t *testing.T) {
     config, err := LoadConfig("..")
-    fmt.Printf("%+v", config)
     require.NoError(t, err)
     require.NotEmpty(t, config.DBInitSchemaFile)
     require.NotEmpty(t, config.HTTPServerAddress)
