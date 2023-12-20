@@ -17,5 +17,6 @@ spec:
       containers:
       - name: zimple-bank-api
         image: 793698357301.dkr.ecr.ap-southeast-1.amazonaws.com/zimplebank:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
