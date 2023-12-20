@@ -23,16 +23,27 @@
 
 ### CI/CD:
 * #### Github Actions
+    * Amazon ECR "Login" Action for GitHub Actions
+    * Kubectl tool installer
+
+### Cloud services:
 * #### AWS Free Tier Account
 * #### AWS Identity Access Management (IAM)
 * #### AWS Elastic Container Registery (ECR)
 * #### AWS Relational Database Service (RDS)
 * #### AWS Secrets Manager
 * #### AWS Key Management Service (KMS)
-* #### AWS Command Line Interface (CLI)
 * #### AWS Elastic Kubernetes Service (EKS)
+* #### AWS CloudWatch
+* #### AWS Route 53
 
 ### Others:
 * #### VSCode
 * #### Makefile
 * #### Postman
+* #### Docker
+* #### AWS CLI
+* #### kubectl
+* #### k9s
+* #### Kubernetes Ingress
+* #### Kubernetes Add-on: cert-manager

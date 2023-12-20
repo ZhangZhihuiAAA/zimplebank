@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zimple-bank-api-deployment
+  labels:
+    app: zimple-bank-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zimple-bank-api
+  template:
+    metadata:
+      labels:
+        app: zimple-bank-api
+    spec:
+      containers:
+      - name: zimple-bank-api
+        image: 793698357301.dkr.ecr.ap-southeast-1.amazonaws.com/zimplebank:latest
+        ports:
+        - containerPort: 8080
