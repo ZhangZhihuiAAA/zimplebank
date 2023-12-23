@@ -8,18 +8,17 @@ import (
 	db "github.com/ZhangZhihuiAAA/zimplebank/db/sqlc"
 	"github.com/ZhangZhihuiAAA/zimplebank/token"
 	"github.com/gin-gonic/gin"
-	"github.com/jackc/pgx/v5"
 )
 
-type TransferRequest struct {
+type transferRequest struct {
     FromAccountID int64   `json:"from_account_id" binding:"required,min=1"`
     ToAccountID   int64   `json:"to_account_id" binding:"required,min=1"`
     Amount        float64 `json:"amount" binding:"required,gt=0.00"`
     Currency      string  `json:"currency" binding:"required,currency"`
 }
 
-func (server *Server) CreateTransfer(ctx *gin.Context) {
-    var req TransferRequest
+func (server *Server) createTransfer(ctx *gin.Context) {
+    var req transferRequest
     if err := ctx.ShouldBindJSON(&req); err != nil {
         ctx.JSON(http.StatusBadRequest, errorResponse(err))
         return
@@ -59,7 +58,7 @@ func (server *Server) CreateTransfer(ctx *gin.Context) {
 func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency string) (db.Account, bool) {
     account, err := server.store.GetAccount(ctx, accountID)
     if err != nil {
-        if errors.Is(pgx.ErrNoRows, err) {
+        if errors.Is(db.ErrNoRows, err) {
             ctx.JSON(http.StatusNotFound, errorResponse(err))
             return account, false
         }

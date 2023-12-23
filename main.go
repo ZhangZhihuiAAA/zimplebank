@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -31,11 +32,13 @@ func init() {
     }
 
     connPool, err = pgxpool.New(ctx, config.DBSource)
+    fmt.Println(err)
     if err != nil {
         log.Fatal(err)
     }
 
 CONNECT_DB:
+    log.Println("Connecting to db ......")
     _, err = connPool.Query(ctx, "SELECT * FROM users LIMIT 1;")
     if err != nil {
         if strings.Contains(err.Error(), "failed to connect to") {
@@ -70,6 +73,7 @@ func main() {
         log.Fatal("cannot create server:", err)
     }
 
+    log.Println("Starting server ......")
     err = server.Start(config.HTTPServerAddress)
     if err != nil {
         log.Fatal("cannot start server:", err)

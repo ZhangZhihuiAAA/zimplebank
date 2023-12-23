@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/ZhangZhihuiAAA/zimplebank/util"
-	"github.com/jackc/pgx/v5"
 	"github.com/stretchr/testify/require"
 )
 
@@ -53,7 +52,7 @@ func TestDeleteAccount(t *testing.T) {
 
     account2, err := testStore.GetAccount(context.Background(), account1.ID)
     require.Error(t, err)
-    require.EqualError(t, pgx.ErrNoRows, err.Error())
+    require.EqualError(t, ErrNoRows, err.Error())
     require.Empty(t, account2)
 }
 

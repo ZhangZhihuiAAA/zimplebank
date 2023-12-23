@@ -4,12 +4,13 @@
 ## Resources used in this project:
 
 ### Database Related:
-* #### Database: PostgreSQL 16 docker image
+* #### DB: PostgreSQL 16 docker image
 * #### DB Design Tool: [dbdiagram.io](https://dbdiagram.io/)
 * #### DB Design: https://dbdiagram.io/d/Zimple_Bank-6563f8823be1495787c588f4
-* #### SQL GUI Client: Tableplus(https://tableplus.com/)
 * #### SQL CLI Client: psql
-* #### CRUD Code Generation Tool: SQLC(https://sqlc.dev/)
+* #### SQL GUI Client: Tableplus(https://tableplus.com/)
+* #### CRUD Code Generation CLI: SQLC(https://sqlc.dev/)
+* #### DB Document Generation Tool: [dbdocs.io](https://dbdocs.io/)
 
 ### Non-Standard Library Go packages:
 * #### PostgreSQL Driver: github.com/jackc/pgx/v5
@@ -23,17 +24,19 @@
 
 ### CI/CD:
 * #### Github Actions
+* #### Github Marketplace Actions:
     * Amazon ECR "Login" Action for GitHub Actions
     * Kubectl tool installer
 
 ### Cloud services:
 * #### AWS Free Tier Account
-* #### AWS Identity Access Management (IAM)
+* #### AWS Identity and Access Management (IAM)
 * #### AWS Elastic Container Registery (ECR)
 * #### AWS Relational Database Service (RDS)
 * #### AWS Secrets Manager
 * #### AWS Key Management Service (KMS)
 * #### AWS Elastic Kubernetes Service (EKS)
+* #### AWS Elastic Compute Cloud (EC2)
 * #### AWS CloudWatch
 * #### AWS Route 53
 

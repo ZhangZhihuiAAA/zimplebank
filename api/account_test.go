@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -14,7 +15,6 @@ import (
 	db "github.com/ZhangZhihuiAAA/zimplebank/db/sqlc"
 	"github.com/ZhangZhihuiAAA/zimplebank/token"
 	"github.com/ZhangZhihuiAAA/zimplebank/util"
-	"github.com/jackc/pgx/v5"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 )
@@ -87,7 +87,7 @@ func TestGetAccountAPI(t *testing.T) {
                 store.EXPECT().
                     GetAccount(gomock.Any(), gomock.Eq(account.ID)).
                     Times(1).
-                    Return(db.Account{}, pgx.ErrNoRows)
+                    Return(db.Account{}, db.ErrNoRows)
             },
             checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
                 require.Equal(t, http.StatusNotFound, recorder.Code)
@@ -103,7 +103,7 @@ func TestGetAccountAPI(t *testing.T) {
                 store.EXPECT().
                     GetAccount(gomock.Any(), gomock.Eq(account.ID)).
                     Times(1).
-                    Return(db.Account{}, pgx.ErrTxClosed)
+                    Return(db.Account{}, errors.New("Internal Error"))
             },
             checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
                 require.Equal(t, http.StatusInternalServerError, recorder.Code)
