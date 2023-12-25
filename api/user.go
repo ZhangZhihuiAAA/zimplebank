@@ -11,14 +11,14 @@ import (
 	"github.com/google/uuid"
 )
 
-type createUserRequest struct {
+type CreateUserRequest struct {
     Username string `json:"username" binding:"required,alphanum"`
     Password string `json:"password" binding:"required,min=6"`
     FullName string `json:"full_name" binding:"required"`
     Email    string `json:"email" binding:"required,email"`
 }
 
-type createUserResponse struct {
+type CreateUserResponse struct {
     Username          string    `json:"username"`
     FullName          string    `json:"full_name"`
     Email             string    `json:"email"`
@@ -26,8 +26,8 @@ type createUserResponse struct {
     CreatedAt         time.Time `json:"created_at"`
 }
 
-func (server *Server) createUser(ctx *gin.Context) {
-    var req createUserRequest
+func (server *Server) CreateUser(ctx *gin.Context) {
+    var req CreateUserRequest
     if err := ctx.ShouldBindJSON(&req); err != nil {
         ctx.JSON(http.StatusBadRequest, errorResponse(err))
         return
@@ -58,7 +58,7 @@ func (server *Server) createUser(ctx *gin.Context) {
         return
     }
 
-    resp := createUserResponse{
+    resp := CreateUserResponse{
         Username:          user.Username,
         FullName:          user.FullName,
         Email:             user.Email,
@@ -68,13 +68,13 @@ func (server *Server) createUser(ctx *gin.Context) {
     ctx.JSON(http.StatusOK, resp)
 }
 
-type loginUserRequest struct {
+type LoginUserRequest struct {
     Username string `json:"username" binding:"required,alphanum"`
     Password string `json:"password" binding:"required,min=6"`
 }
 
-type loginUserResponse struct {
-    User                  createUserResponse `json:"user"`
+type LoginUserResponse struct {
+    User                  CreateUserResponse `json:"user"`
     SessionID             uuid.UUID          `json:"session_id"`
     AccessToken           string             `json:"access_token"`
     AccessTokenExpiresAt  time.Time          `json:"access_token_expires_at"`
@@ -82,8 +82,8 @@ type loginUserResponse struct {
     RefreshTokenExpiresAt time.Time          `json:"refresh_token_expires_at"`
 }
 
-func (server *Server) loginUser(ctx *gin.Context) {
-    var req loginUserRequest
+func (server *Server) LoginUser(ctx *gin.Context) {
+    var req LoginUserRequest
     if err := ctx.ShouldBindJSON(&req); err != nil {
         ctx.JSON(http.StatusBadRequest, errorResponse(err))
         return
@@ -134,8 +134,8 @@ func (server *Server) loginUser(ctx *gin.Context) {
         return
     }
 
-    resp := loginUserResponse{
-        User: createUserResponse{
+    resp := LoginUserResponse{
+        User: CreateUserResponse{
             Username:          user.Username,
             FullName:          user.FullName,
             Email:             user.Email,

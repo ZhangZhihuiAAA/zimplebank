@@ -10,6 +10,7 @@ import (
 type Config struct {
     DBInitSchemaFile     string        `mapstructure:"DB_INIT_SCHEMA_FILE"`
     HTTPServerAddress    string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+    GRPCServerAddress    string        `mapstructure:"GRPC_SERVER_ADDRESS"`
     AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
     RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
     Environment          string        `mapstructure:"ENVIRONMENT"`
