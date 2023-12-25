@@ -7,10 +7,12 @@
 * #### DB: PostgreSQL 16 docker image
 * #### DB Design Tool: [dbdiagram.io](https://dbdiagram.io/)
 * #### DB Design: https://dbdiagram.io/d/Zimple_Bank-6563f8823be1495787c588f4
+* #### DB Docs Generation Tool: [dbdocs.io](https://dbdocs.io/)
+* #### DB Docs: https://dbdocs.io/ZhangZhihuiAAA/zimple_bank
+* #### DB SQL Code Generation Tool: [dbml.dbdiagram.io/cli](https://dbml.dbdiagram.io/cli)
 * #### SQL CLI Client: psql
-* #### SQL GUI Client: Tableplus(https://tableplus.com/)
-* #### CRUD Code Generation CLI: SQLC(https://sqlc.dev/)
-* #### DB Document Generation Tool: [dbdocs.io](https://dbdocs.io/)
+* #### SQL GUI Client: Tableplus(https://tableplus.com)
+* #### CRUD Go Code Generation Tool: SQLC(https://sqlc.dev)
 
 ### Non-Standard Library Go packages:
 * #### PostgreSQL Driver: github.com/jackc/pgx/v5
@@ -21,6 +23,11 @@
 * #### Validator: github.com/go-playground/validator/v10
 * #### UUID: github.com/google/uuid
 * #### Token Maker: github.com/o1egl/paseto
+* #### GRPC: google.golang.org/grpc
+* #### Protobuf: google.golang.org/protobuf
+* #### GRPC Gateway: github.com/grpc-ecosystem/grpc-gateway
+* #### Google APIs: github.com/googleapis/googleapis (needed by generating reverse-proxy using protoc-gen-grpc-gateway)
+* #### Static files to binary: github.com/rakyll/statik
 
 ### CI/CD:
 * #### Github Actions
@@ -50,3 +57,11 @@
 * #### k9s
 * #### Kubernetes Ingress
 * #### Kubernetes Add-on: cert-manager
+* #### protoc (Protobuf Complier)
+* #### GRPC Gateway (a plugin of protoc)
+* #### Evans (a GRPC client tool)
+* #### Swagger (https://swagger.io)
+    * Display API Docs on SwaggerHub: (https://app.swaggerhub.com/apis-docs/ZHANGZHIHUIAAA/zimple-bank/1.0)
+* #### SwaggerUI (https://github.com/swagger-api/swagger-ui)
+    * Free tool to display API Docs on your own server
+* #### statik

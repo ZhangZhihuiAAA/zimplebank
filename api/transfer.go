@@ -10,15 +10,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type transferRequest struct {
+type TransferRequest struct {
     FromAccountID int64   `json:"from_account_id" binding:"required,min=1"`
     ToAccountID   int64   `json:"to_account_id" binding:"required,min=1"`
     Amount        float64 `json:"amount" binding:"required,gt=0.00"`
     Currency      string  `json:"currency" binding:"required,currency"`
 }
 
-func (server *Server) createTransfer(ctx *gin.Context) {
-    var req transferRequest
+func (server *Server) CreateTransfer(ctx *gin.Context) {
+    var req TransferRequest
     if err := ctx.ShouldBindJSON(&req); err != nil {
         ctx.JSON(http.StatusBadRequest, errorResponse(err))
         return
