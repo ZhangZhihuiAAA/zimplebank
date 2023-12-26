@@ -2,7 +2,6 @@ package util
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"math/rand"
 	"strings"
@@ -35,7 +34,8 @@ func RandomOwner() string {
 
 // RandomMoney generates a random amount of money
 func RandomMoney() float64 {
-    return roundFloat64(rand.Float64() * float64(RandomInt(0, 10000)), 2)
+    roundedValue, _ := roundFloat64(rand.Float64() * float64(RandomInt(0, 10000)), 2)
+    return roundedValue
 }
 
 // RandomCurrency generates a random currency code
@@ -51,12 +51,12 @@ func RandomEmail() string {
 }
 
 // roundFloat64 rounds a float64 number to a decimal place
-func roundFloat64(number float64, decimalPlace int) float64 {
+func roundFloat64(number float64, decimalPlace int) (float64, error) {
     if decimalPlace < 0 || decimalPlace > 20 {
-        log.Fatal("decimalPlace is out of range (0-20)")
+        return number, fmt.Errorf("decimalPlace is out of range (0-20)")
     }
     // Calculate 10 to the power of decimalPlace
     temp := math.Pow10(decimalPlace)
     // Multiply the float number with 10**decimalPlace and round it
-    return math.Round(number * temp) / temp
+    return math.Round(number * temp) / temp, nil
 }
