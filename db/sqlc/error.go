@@ -1,10 +1,10 @@
 package db
 
 import (
-	"errors"
+    "errors"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
+    "github.com/jackc/pgx/v5"
+    "github.com/jackc/pgx/v5/pgconn"
 )
 
 const (

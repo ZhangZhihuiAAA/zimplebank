@@ -28,6 +28,7 @@
 * #### GRPC Gateway: github.com/grpc-ecosystem/grpc-gateway
 * #### Google APIs: github.com/googleapis/googleapis (needed by generating reverse-proxy using protoc-gen-grpc-gateway)
 * #### Static files to binary: github.com/rakyll/statik
+* #### Logging: github.com/rs/zerolog
 
 ### CI/CD:
 * #### Github Actions
@@ -50,6 +51,7 @@
 ### Others:
 * #### VSCode
 * #### Makefile
+* #### SQLC
 * #### Postman
 * #### Docker
 * #### AWS CLI
