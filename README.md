@@ -9,17 +9,17 @@
 * #### DB Design: https://dbdiagram.io/d/Zimple_Bank-6563f8823be1495787c588f4
 * #### DB Docs Generation Tool: [dbdocs.io](https://dbdocs.io/)
 * #### DB Docs: https://dbdocs.io/ZhangZhihuiAAA/zimple_bank
-* #### DB SQL Code Generation Tool: [dbml.dbdiagram.io/cli](https://dbml.dbdiagram.io/cli)
-* #### SQL CLI Client: psql
+* #### DB SQL Code Generation Tool: [dbml2sql](https://dbml.dbdiagram.io/cli)
 * #### SQL GUI Client: Tableplus(https://tableplus.com)
 * #### CRUD Go Code Generation Tool: SQLC(https://sqlc.dev)
 
-### Non-Standard Library Go packages:
+### Non-Standard Library Go modules/packages:
 * #### PostgreSQL Driver: github.com/jackc/pgx/v5
+* #### DB Migration: github.com/golang-migrate/migrate/v4
 * #### Unit Test: github.com/stretchr/testify/require
 * #### Unit Test: github.com/uber-go/mock
 * #### Web Framework: github.com/gin-gonic/gin
-* #### Config: github.com/spf13/viper
+* #### Config Management: github.com/spf13/viper
 * #### Validator: github.com/go-playground/validator/v10
 * #### UUID: github.com/google/uuid
 * #### Token Maker: github.com/o1egl/paseto
@@ -47,10 +47,12 @@
 * #### AWS Elastic Compute Cloud (EC2)
 * #### AWS CloudWatch
 * #### AWS Route 53
+* #### AWS Simple Email Service (SES)
 
 ### Others:
 * #### VSCode
 * #### Makefile
+* #### migrate
 * #### SQLC
 * #### Postman
 * #### Docker
@@ -67,3 +69,4 @@
 * #### SwaggerUI (https://github.com/swagger-api/swagger-ui)
     * Free tool to display API Docs on your own server
 * #### statik
+* #### Redis

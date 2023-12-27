@@ -10,7 +10,9 @@ import (
 // Store defines all functions to execute db queries and transactions
 type Store interface {
     Querier
-    TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
+    TransferTx(context.Context, TransferTxParams) (TransferTxResult, error)
+    CreateUserTx(context.Context, CreateUserTxParams) (CreateUserTxResult, error)
+    VerifyEmailTx(context.Context, VerifyEmailTxParams) (VerifyEmailTxResult, error)
 }
 
 // SQLStore provides all functions to execute SQL quries and transactions

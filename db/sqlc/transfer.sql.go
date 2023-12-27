@@ -11,11 +11,11 @@ import (
 
 const createTransfer = `-- name: CreateTransfer :one
 INSERT INTO transfers (
-  from_account_id,
-  to_account_id,
-  amount
+    from_account_id,
+    to_account_id,
+    amount
 ) VALUES (
-  $1, $2, $3
+    $1, $2, $3
 ) RETURNING id, from_account_id, to_account_id, amount, created_at
 `
 
@@ -40,7 +40,8 @@ func (q *Queries) CreateTransfer(ctx context.Context, arg CreateTransferParams) 
 
 const getTransfer = `-- name: GetTransfer :one
 SELECT id, from_account_id, to_account_id, amount, created_at FROM transfers
-WHERE id = $1 LIMIT 1
+WHERE id = $1 
+LIMIT 1
 `
 
 func (q *Queries) GetTransfer(ctx context.Context, id int64) (Transfer, error) {
