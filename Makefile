@@ -41,8 +41,8 @@ sqlc:
 	gofmt -w db/sqlc/*.go
 	sed -i 's/\t/    /g' db/sqlc/*.go
 
-initschema4test:
-	psql ${DB_SOURCE} -f $(ls db/migration/*.up.sql)
+initschema4githubtest:
+	ls -1 db/migration/*.up.sql | xargs -I{} psql ${DB_SOURCE} -f {}
 
 test:
 	go test -v -count=1 -cover -short ./...
@@ -71,4 +71,4 @@ evans:
 redis:
 	docker run --name redis -p 6379:6379 -d redis:7-alpine
 
-.PHONY: postgres createdb dropdb initupdatetype migrateup migratedown migrateup1 migratedown1 new_migration db_docs db_schema sqlc test server mock proto evans redis
+.PHONY: postgres createdb dropdb initupdatetype migrateup migratedown migrateup1 migratedown1 new_migration db_docs db_schema sqlc initschema4githubtest test server mock proto evans redis
