@@ -10,19 +10,22 @@ dropdb:
 	docker exec -it postgres16 dropdb zimple_bank
 
 initupdatetype:
-	sed -i 's/"numeric(32, 6)"/numeric(32, 6)/g' db/schema/0000_init_schema.up.sql
+	sed -i 's/"numeric(32, 6)"/numeric(32, 6)/g' db/migration/*.sql
 
-initup:
-	psql "$(DB_URL)" -f db/schema/0000_init_schema.up.sql
+migrateup:
+	migrate -path db/migration -database "$(DB_URL)" -verbose up
 
-initdown:
-	psql "$(DB_URL)"  -f db/schema/0000_init_schema.down.sql
+migratedown:
+	migrate -path db/migration -database "$(DB_URL)" -verbose down
 
-addsessionsup:
-	psql "$(DB_URL)" -f db/schema/0001_add_sessions.up.sql
+migrateup1:
+	migrate -path db/migration -database "$(DB_URL)" -verbose up 1
 
-addsessionsdown:
-	psql "$(DB_URL)" -f db/schema/0001_add_sessions.down.sql
+migratedown1:
+	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
+
+new_migration:
+	migrate create -ext sql -dir db/migration -seq $(name)
 
 db_docs:
 	dbdocs build doc/db.dbml
@@ -38,8 +41,11 @@ sqlc:
 	gofmt -w db/sqlc/*.go
 	sed -i 's/\t/    /g' db/sqlc/*.go
 
+initschema4githubtest:
+	ls -1 db/migration/*.up.sql | xargs -I{} psql "$(DB_URL)" -f {}
+
 test:
-	go test -v -count=1 -cover ./...
+	go test -v -count=1 -cover -short ./...
 
 server:
 	go run main.go
@@ -62,4 +68,7 @@ proto:
 evans:
 	evans --host localhost --port 9090 -r repl
 
-.PHONY: postgres createdb dropdb initupdatetype initup initdown addsessionsup addsessionsdown db_docs db_schema sqlc test server mock proto
+redis:
+	docker run --name redis -p 6379:6379 -d redis:7-alpine
+
+.PHONY: postgres createdb dropdb initupdatetype migrateup migratedown migrateup1 migratedown1 new_migration db_docs db_schema sqlc initschema4githubtest test server mock proto evans redis

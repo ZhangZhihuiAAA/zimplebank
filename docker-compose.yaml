@@ -5,14 +5,19 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=aaa
       - POSTGRES_DB=zimple_bank
+  redis:
+    image: redis:7-alpine
   api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+      - "9090:9090"
     environment:
       - DB_SOURCE=postgresql://root:aaa@postgres:5432/zimple_bank?sslmode=disable
+      - REDIS_ADDRESS=redis:6379
       - GIN_MODE=release
     depends_on:
       - postgres
+      - redis
