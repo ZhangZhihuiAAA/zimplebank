@@ -5,6 +5,8 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
+	"time"
 
 	"github.com/ZhangZhihuiAAA/zimplebank/api"
 	db "github.com/ZhangZhihuiAAA/zimplebank/db/sqlc"
@@ -28,6 +30,11 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+const (
+    dbMigrationRetryLimit = 6
+    dbMigrationRetryInterval = 20 * time.Second
+)
+
 func main() {
     config, err := util.LoadConfig(".")
     if err != nil {
@@ -38,7 +45,7 @@ func main() {
         log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
     }
 
-    runDBMigration(config.MigrationURL, config.DBSource)
+    runDBMigration(config.MigrationURL, config.DBSource, dbMigrationRetryLimit, dbMigrationRetryInterval)
 
     connPool, err := pgxpool.New(context.Background(), config.DBSource)
     if err != nil {
@@ -57,13 +64,21 @@ func main() {
     runGrpcServer(config, store, taskDistributor)
 }
 
-func runDBMigration(migrationURL string, dbSource string) {
+func runDBMigration(migrationURL string, dbSource string, retryLimit int, retryInterval time.Duration) {
+    retryTimes := 0
+RETRY:
     migration, err := migrate.New(migrationURL, dbSource)
     if err != nil {
-        log.Fatal().Err(err).Msg("failed to create new migrate instance")
+        if strings.Contains(err.Error(), "connection refused") && retryTimes <= retryLimit {
+            log.Info().Msg("retrying creating migrate instance")
+            time.Sleep(retryInterval)
+            retryTimes++
+            goto RETRY
+        }
+        log.Fatal().Err(err).Msg("failed to create migrate instance")
     }
 
-    if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
+    if err = migration.Up(); err != nil && err != migrate.ErrNoChange{
         log.Fatal().Err(err).Msg("failed to run migration up")
     }
 

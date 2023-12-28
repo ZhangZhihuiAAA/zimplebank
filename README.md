@@ -29,6 +29,7 @@
 * #### Google APIs: github.com/googleapis/googleapis (needed by generating reverse-proxy using protoc-gen-grpc-gateway)
 * #### Static files to binary: github.com/rakyll/statik
 * #### Logging: github.com/rs/zerolog
+* #### Sending Email: github.com/jordan-wright/email
 
 ### CI/CD:
 * #### Github Actions
