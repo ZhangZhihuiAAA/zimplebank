@@ -42,7 +42,7 @@ sqlc:
 	sed -i 's/\t/    /g' db/sqlc/*.go
 
 initschema4githubtest:
-	ls -1 db/migration/*.up.sql | xargs -I{} psql postgresql://root:aaa@postgres:5432/zimple_bank?sslmode=disable -f {}
+	ls -1 db/migration/*.up.sql | xargs -I{} psql "$(DB_URL)" -f {}
 
 test:
 	go test -v -count=1 -cover -short ./...
