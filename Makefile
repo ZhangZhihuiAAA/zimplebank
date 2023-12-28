@@ -41,6 +41,9 @@ sqlc:
 	gofmt -w db/sqlc/*.go
 	sed -i 's/\t/    /g' db/sqlc/*.go
 
+initschema4test:
+	psql ${DB_SOURCE} -f $(ls db/migration/*.up.sql)
+
 test:
 	go test -v -count=1 -cover -short ./...
 
