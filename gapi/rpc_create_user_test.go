@@ -102,6 +102,7 @@ func TestCreateUserAPI(t *testing.T) {
             ctrl2 := gomock.NewController(t)
             defer ctrl2.Finish()
             taskdDstributor := mockworker.NewMockTaskDistributor(ctrl2)
+
             tc.buildStubs(store, taskdDstributor)
 
             server := newTestServer(t, store, taskdDstributor)
