@@ -8,10 +8,10 @@ import (
 )
 
 const (
-    // gmailSmtpAuthAddress   = "smtp.gmail.com"
-    // gmailSmtpServerAddress = "smtp.gmail.com:587"
-    smtpAuthAddress = "smtp.126.com"
-    smtpServerAddress = "smtp.126.com:25"
+    // GMAIL_SMTP_AUTH_ADDRESS   = "smtp.gmail.com"
+    // GMAIL_SMTP_SERVER_ADDRESS = "smtp.gmail.com:587"
+    SMTP_AUTH_ADDRESS   = "smtp.126.com"
+    SMTP_SERVER_ADDRESS = "smtp.126.com:25"
 )
 
 type Sender interface {
@@ -62,6 +62,6 @@ func (sender OneTwoSixSender) Send(
         }
     }
 
-    smtpAuth := smtp.PlainAuth("", sender.fromEmailAddress, sender.fromEmailPassword, smtpAuthAddress)
-    return e.Send(smtpServerAddress, smtpAuth)
+    smtpAuth := smtp.PlainAuth("", sender.fromEmailAddress, sender.fromEmailPassword, SMTP_AUTH_ADDRESS)
+    return e.Send(SMTP_SERVER_ADDRESS, smtpAuth)
 }

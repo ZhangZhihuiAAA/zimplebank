@@ -31,8 +31,8 @@ import (
 )
 
 const (
-    dbMigrationRetryLimit = 6
-    dbMigrationRetryInterval = 20 * time.Second
+    DB_MIGRATION_RETRY_LIMIT    = 6
+    DB_MIGRATION_RETRY_INTERVAL = 20 * time.Second
 )
 
 func main() {
@@ -45,7 +45,7 @@ func main() {
         log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
     }
 
-    runDBMigration(config.MigrationURL, config.DBSource, dbMigrationRetryLimit, dbMigrationRetryInterval)
+    runDBMigration(config.MigrationURL, config.DBSource, DB_MIGRATION_RETRY_LIMIT, DB_MIGRATION_RETRY_INTERVAL)
 
     connPool, err := pgxpool.New(context.Background(), config.DBSource)
     if err != nil {
@@ -78,7 +78,7 @@ RETRY:
         log.Fatal().Err(err).Msg("failed to create migrate instance")
     }
 
-    if err = migration.Up(); err != nil && err != migrate.ErrNoChange{
+    if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
         log.Fatal().Err(err).Msg("failed to run migration up")
     }
 

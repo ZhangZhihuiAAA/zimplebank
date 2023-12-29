@@ -10,8 +10,8 @@ import (
 )
 
 const (
-    authorizationHeaderKey  = "authorization"
-    authorizationTypeBearer = "bearer"
+    AUTHORIZATION_HEADER_KEY  = "authorization"
+    AUTHORIZATION_TYPE_BEARER = "bearer"
 )
 
 func (server *Server) authorizeUser(ctx context.Context) (*token.Payload, error) {
@@ -20,7 +20,7 @@ func (server *Server) authorizeUser(ctx context.Context) (*token.Payload, error)
         return nil, fmt.Errorf("missing metadata")
     }
 
-    values := md.Get(authorizationHeaderKey)
+    values := md.Get(AUTHORIZATION_HEADER_KEY)
     if len(values) == 0 {
         return nil, fmt.Errorf("missing authorization header")
     }
@@ -32,7 +32,7 @@ func (server *Server) authorizeUser(ctx context.Context) (*token.Payload, error)
     }
 
     authType := strings.ToLower(fields[0])
-    if authType != authorizationTypeBearer {
+    if authType != AUTHORIZATION_TYPE_BEARER {
         return nil, fmt.Errorf("unsupported authorization type: %s", authType)
     }
 

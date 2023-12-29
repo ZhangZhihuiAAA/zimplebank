@@ -48,7 +48,7 @@ func TestTransferAPI(t *testing.T) {
                 "currency": account1.Currency,
             },
             setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
-                addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user1.Username, time.Minute)
+                addAuthorization(t, request, tokenMaker, AUTHORIZATION_TYPE_BEARER, user1.Username, time.Minute)
             },
             buildStubs: func(store *mockdb.MockStore) {
                 store.EXPECT().
