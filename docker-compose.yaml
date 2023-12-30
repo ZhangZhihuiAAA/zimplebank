@@ -5,6 +5,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=aaa
       - POSTGRES_DB=zimple_bank
+    volumes:
+      - data-volume:/var/lib/postgresql/data
   redis:
     image: redis:7-alpine
   api:
@@ -21,3 +23,5 @@ services:
     depends_on:
       - postgres
       - redis
+volumes:
+  data-volume:

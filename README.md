@@ -66,7 +66,7 @@
 * #### GRPC Gateway (a plugin of protoc)
 * #### Evans (a GRPC client tool)
 * #### Swagger (https://swagger.io)
-    * Display API Docs on SwaggerHub: (https://app.swaggerhub.com/apis-docs/ZHANGZHIHUIAAA/zimple-bank/1.0)
+    * Display API Docs on SwaggerHub: (https://app.swaggerhub.com/apis-docs/ZHANGZHIHUIAAA/zimple-bank/1.2)
 * #### SwaggerUI (https://github.com/swagger-api/swagger-ui)
     * Free tool to display API Docs on your own server
 * #### statik
