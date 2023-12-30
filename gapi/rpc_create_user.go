@@ -82,12 +82,11 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 
     txResult, err := server.store.CreateUserTx(ctx, arg)
     if err != nil {
-        errCode := db.ErrorCode(err)
-        if errCode == db.UNIQUE_VIOLATION {
-            return nil, status.Error(codes.AlreadyExists, "username already exists")
+        if db.ErrorCode(err) == db.UNIQUE_VIOLATION {
+            return nil, status.Error(codes.AlreadyExists, err.Error())
         }
 
-        return nil, status.Error(codes.Internal, "failed to create user")
+        return nil, status.Errorf(codes.Internal, "failed to create user: %s", err)
     }
 
     resp := &pb.CreateUserResponse{
