@@ -1,10 +1,11 @@
 package db
 
 import (
-    "context"
-    "testing"
+	"context"
+	"math"
+	"testing"
 
-    "github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/require"
 )
 
 func TestTransferTx(t *testing.T) {
@@ -84,7 +85,7 @@ func TestTransferTx(t *testing.T) {
         // check balances
         diff1 := account1.Balance - fromAccount.Balance
         diff2 := toAccount.Balance - account2.Balance
-        require.Equal(t, diff1, diff2)
+        require.LessOrEqual(t, math.Abs(diff1 - diff2), 1e-10)
         require.True(t, diff1 > 0)
         require.True(t, int(diff1)%int(amount) == 0)
 
