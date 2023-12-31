@@ -8,5 +8,10 @@ spec:
   ports:
     - protocol: TCP
       port: 80 # on which the server will listen to incoming request
-      targetPort: 8080 # port of the container where the request will be sent to
+      targetPort: http-server # port of the container where the request will be sent to
+      name: http-service
+    - protocol: TCP
+      port: 90
+      targetPort: grpc-server
+      name: grpc-service
   type: LoadBalancer # change to ClusterIP if use Ingress

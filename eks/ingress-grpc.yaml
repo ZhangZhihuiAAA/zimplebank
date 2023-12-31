@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zimple-bank-ingress-grpc
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true" # Copied from https://kubernetes.github.io/ingress-nginx/examples/grpc/
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC" # Google 'grpc ingress nginx' for the above URL
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "gapi.zimple-bank.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: zimple-bank-api-service
+            port:
+              number: 90
+  tls:
+  - hosts:
+    - gapi.zimple-bank.org
+    secretName: zimple-bank-gapi-cert

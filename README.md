@@ -49,6 +49,7 @@
 * #### AWS CloudWatch
 * #### AWS Route 53
 * #### AWS Simple Email Service (SES)
+* #### AWS ElastiCache
 
 ### Others:
 * #### VSCode
